@@ -1,0 +1,47 @@
+{
+  "common": {
+    "confirmation": "Подтверждение",
+    "cancel": "Отмена",
+    "yes": "Да"
+  },
+  "goods": {
+    "goods": "Товары",
+    "goods_list": "Список товаров",
+    "product": "Товар",
+    "sure_delete_all_products": "Вы уверены, что хотите удалить все товары?",
+    "sure_delete_product": "Вы уверены, что хотите удалить этот товар?",
+    "brand": "Бренд",
+    "category": "Категория",
+    "quantity": "Количество",
+    "latest_change": "Последнее изменение",
+    "notes": "Заметки"
+  },
+  "scanner": {
+    "scan": "Сканировать",
+    "barcode_scanner": "Сканер штрихкодов",
+    "grant_camera_access_in_settings": {
+      "grant_camera_access": "Разрешите доступ к камере",
+      "in_settings": "в настройках"
+    },
+    "invalid_code": "Невалидный код",
+    "manual_barcode_entry": "Ручной ввод штрихового кода",
+    "add_product": "Добавить товар"
+  },
+  "settings": {
+    "settings": "Настройки",
+    "app_theme": "Тема приложения",
+    "choose_theme": "Выберите тему...",
+    "system_theme": "Системная тема",
+    "light_theme": "Светлая тема",
+    "dark_theme": "Тёмная тема",
+    "app_language": "Язык приложения",
+    "choose_language": "Выберите язык..."
+  },
+  "abbreviations": {
+    "KGM": "кг",
+    "GRM": "г",
+    "PCE": "шт",
+    "LTR": "л",
+    "MLT": "мл"
+  }
+}

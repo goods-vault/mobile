@@ -1,0 +1,47 @@
+{
+  "common": {
+    "confirmation": "Confirmation",
+    "cancel": "Cancel",
+    "yes": "Yes"
+  },
+  "goods": {
+    "goods": "Goods",
+    "goods_list": "Goods list",
+    "product": "Product",
+    "sure_delete_all_products": "Are you sure to delete all products?",
+    "sure_delete_product": "Are you sure to delete this product?",
+    "brand": "Brand",
+    "category": "Category",
+    "quantity": "Quantity",
+    "latest_change": "Latest change",
+    "notes": "Notes"
+  },
+  "scanner": {
+    "scan": "Scan",
+    "barcode_scanner": "Barcode scanner",
+    "grant_camera_access_in_settings": {
+      "grant_camera_access": "Grant access to the camera",
+      "in_settings": "in the settings"
+    },
+    "invalid_code": "Invalid code",
+    "manual_barcode_entry": "Manual barcode entry",
+    "add_product": "Add product"
+  },
+  "settings": {
+    "settings": "Settings",
+    "app_theme": "Application theme",
+    "choose_theme": "Выберите тему...",
+    "system_theme": "System theme",
+    "light_theme": "Light theme",
+    "dark_theme": "Dark theme",
+    "app_language": "Application language",
+    "choose_language": "Choose language..."
+  },
+  "abbreviations": {
+    "KGM": "kg",
+    "GRM": "g",
+    "PCE": "pc",
+    "LTR": "l",
+    "MLT": "ml"
+  }
+}
