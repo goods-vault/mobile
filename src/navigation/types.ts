@@ -21,4 +21,4 @@ export type ScannerStackParamList = {
 
 export type SettingsStackParamList = {
     Settings: undefined;
-}
+};
