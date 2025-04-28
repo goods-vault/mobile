@@ -71,37 +71,38 @@ const ProductProperties = observer(({ code }: ProductPropertiesProps) => {
 
     return (
         <View style={styles.container}>
-        {product?.requestedItem && product?.requestedItem[0].fileFormatName.value === "IMAGE"
-            ? <Image style={styles.fullWidth} resizeMode="contain"
-    source={{ uri: product.requestedItem[0].uniformResourceIdentifier }}/>
-: <Image style={styles.fullWidth} resizeMode="contain" source={require("../../assets/images/no-image.jpeg")}/>
-}
-    <Text style={styles.title}>{product?.itemName}</Text>
-    <ProductProperty title={t("brand")} value={product?.brandName}/>
-    {product?.tradeItemClassification[0].gpcCategoryName &&
-    <ProductProperty title={t("category")} value={product?.tradeItemClassification[0].gpcCategoryName}/>
-    }
-    {getQuantity(product) && <ProductProperty title={t("quantity")} value={getQuantity(product)}/>}
-    <ProductProperty title={t("latest_change")} value={dateObjectToString(product?.lastChangeDate)}/>
-    </View>
+            {product?.requestedItem && product?.requestedItem[0].fileFormatName.value === "IMAGE"
+              ? <Image style={styles.fullWidth} resizeMode="contain"
+                       source={{ uri: product.requestedItem[0].uniformResourceIdentifier }}/>
+              : <Image style={styles.fullWidth} resizeMode="contain"
+                       source={require("../../assets/images/no-image.jpeg")}/>
+            }
+            <Text style={styles.title}>{product?.itemName}</Text>
+            <ProductProperty title={t("brand")} value={product?.brandName}/>
+            {product?.tradeItemClassification[0].gpcCategoryName &&
+              <ProductProperty title={t("category")} value={product?.tradeItemClassification[0].gpcCategoryName}/>
+            }
+            {getQuantity(product) && <ProductProperty title={t("quantity")} value={getQuantity(product)}/>}
+            <ProductProperty title={t("latest_change")} value={dateObjectToString(product?.lastChangeDate)}/>
+        </View>
     );
+});
+
+const useStyles = (colors: IColors) =>
+    StyleSheet.create({
+        fullWidth: {
+            width: "100%",
+            height: 400,
+        },
+        title: {
+            fontSize: 18,
+            fontWeight: "bold",
+            color: colors.accentDefault,
+            marginBottom: 8,
+        },
+        container: {
+            gap: 2,
+        },
     });
 
-    const useStyles = (colors: IColors) =>
-        StyleSheet.create({
-            fullWidth: {
-                width: "100%",
-                height: 400,
-            },
-            title: {
-                fontSize: 18,
-                fontWeight: "bold",
-                color: colors.accentDefault,
-                marginBottom: 8,
-            },
-            container: {
-                gap: 2,
-            },
-        });
-
-    export default ProductProperties;
+export default ProductProperties;

@@ -19,18 +19,18 @@ const ProductForm = observer(({ code }: ProductFormProps) => {
     const { t } = useTranslation("goods");
 
     if (productsStore.isLoading) return <ActivityIndicator style={DefaultStyles.center} size={48}
-    color={Colors.textPrimary}/>
+                                                           color={Colors.textPrimary}/>
     return (
         <View style={styles.container}>
-        <Text style={styles.text}>{t("notes")}</Text>
-    <TextInput
-    style={styles.input}
-    multiline={true}
-    value={description}
-    onChangeText={(text) => productsStore.handleDescription(code, text)}
-    />
-    </View>
-);
+          <Text style={styles.text}>{t("notes")}</Text>
+              <TextInput
+                  style={styles.input}
+                  multiline={true}
+                  value={description}
+                  onChangeText={(text) => productsStore.handleDescription(code, text)}
+              />
+        </View>
+    );
 });
 
 const useStyles = (colors: IColors) =>
