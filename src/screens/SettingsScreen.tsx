@@ -6,8 +6,8 @@ import Setting from "../components/settings/Setting.tsx";
 import Option from "../components/settings/Option.tsx";
 
 const SettingsScreen = () => {
-  const [theme, setTheme] = useState<ThemeTypes | undefined>(undefined);
   const { Colors, changeTheme } = useTheme();
+  const [theme, setTheme] = useState<ThemeTypes | undefined>(undefined);
 
   const handleTheme = (theme: ThemeTypes) => {
     if (!theme) {

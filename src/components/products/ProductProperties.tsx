@@ -11,7 +11,7 @@ import Navigation from "../../base/Navigation.ts";
 import { IColors } from "../../modules/theme/ThemeTypes.ts";
 import { useTheme } from "../../modules/theme/hooks/useTheme.ts";
 import Text from "../Text.tsx";
-import { useTranslation } from "react-i18next";
+import { UNIT_CODE_TO_RU } from "../../constants/mappings/units.ts";
 
 type ProductPropertiesProps = {
   code: string;
@@ -23,18 +23,17 @@ const ProductProperties = observer(({ code }: ProductPropertiesProps) => {
   const navigation = useContext(NavigationContext);
   const { Colors } = useTheme();
   const styles = useStyles(Colors);
-  const { t } = useTranslation("goods");
 
   const handleDeleteProduct = () => {
     Alert.alert(
-      t("common:confirmation"),
-      t("sure_delete_product"),
+      "Подтверждение",
+      "Вы уверены, что хотите удалить этот товар?",
       [
         {
-          text: t("common:cancel"),
+          text: "Отмена",
         },
         {
-          text: t("common:yes"),
+          text: "Да",
           onPress: () => {
             Navigation.navigate("Tab", {
               screen: "GoodsStack",
@@ -52,7 +51,7 @@ const ProductProperties = observer(({ code }: ProductPropertiesProps) => {
 
   useEffect(() => {
     navigation?.setOptions({
-      title: product?.itemName || t("product"),
+      title: product?.itemName || "Товар",
       headerRight: () => <DeleteButton onPress={handleDeleteProduct} />,
 
     });
@@ -65,7 +64,7 @@ const ProductProperties = observer(({ code }: ProductPropertiesProps) => {
 
     const value = product?.netContent[0].value;
     const unit = product?.netContent[0].measurementUnitCode;
-    return `${value} ${t("abbreviations:" + unit)}`;
+    return `${value} ${UNIT_CODE_TO_RU[unit]}`;
   };
 
   return (
@@ -84,17 +83,17 @@ const ProductProperties = observer(({ code }: ProductPropertiesProps) => {
       <Text style={styles.title}>
         {product?.itemName}
       </Text>
-      <ProductProperty title={t("brand")} value={product?.brandName} />
+      <ProductProperty title="Бренд" value={product?.brandName} />
       {product?.tradeItemClassification[0].gpcCategoryName &&
         <ProductProperty
-          title={t("category")}
+          title="Категория"
           value={product?.tradeItemClassification[0].gpcCategoryName}
         />
       }
       {getQuantity(product) &&
-        <ProductProperty title={t("quantity")} value={getQuantity(product)} />}
+        <ProductProperty title="Количество" value={getQuantity(product)} />}
       <ProductProperty
-        title={t("latest_change")}
+        title="Последнее изменение"
         value={dateObjectToString(product?.lastChangeDate)}
       />
     </View>
