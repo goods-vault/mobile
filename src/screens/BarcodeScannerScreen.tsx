@@ -1,8 +1,10 @@
-import React from 'react';
-import {Text} from "react-native";
+import React from "react";
+import { Text } from "react-native";
 
 const BarcodeScannerScreen = () => {
-    return <><Text>BarcodeScannerScreen</Text></>;
+  return <>
+    <Text>BarcodeScannerScreen</Text>
+  </>;
 };
 
 export default BarcodeScannerScreen;

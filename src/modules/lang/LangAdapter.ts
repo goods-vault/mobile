@@ -7,19 +7,19 @@ import { LangType } from "./LangType";
 
 export const defaultNS = "common";
 export const resources = {
-    ru,
-    en,
+  ru,
+  en,
 };
 
 i18n.use(initReactI18next).init({
-    resources,
-    defaultNS,
-    lng: LangType.RU,
-    compatibilityJSON: "v3",
-    returnNull: false,
-    interpolation: {
-        escapeValue: false,
-    },
+  resources,
+  defaultNS,
+  lng: LangType.RU,
+  compatibilityJSON: "v3",
+  returnNull: false,
+  interpolation: {
+    escapeValue: false,
+  },
 });
 
 export const Localization = i18n;

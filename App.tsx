@@ -16,7 +16,7 @@ const App = observer(() => {
   }, []);
 
   useEffect(() => {
-    Linking.getInitialURL().then(async deepLinkInitialURL => {
+    Linking.getInitialURL().then(async (deepLinkInitialURL) => {
       if (deepLinkInitialURL) {
         await DeepLinking.handleInitialNavigate(deepLinkInitialURL);
       }
@@ -26,8 +26,8 @@ const App = observer(() => {
   return (
     <ThemeProvider>
       <>
-        <Navigator/>
-        <StatusBar/>
+        <Navigator />
+        <StatusBar />
       </>
     </ThemeProvider>
   );

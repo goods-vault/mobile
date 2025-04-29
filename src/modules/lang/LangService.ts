@@ -3,21 +3,21 @@ import LangLocalRepository from "./LangLocalRepository";
 import { LangType } from "./LangType";
 
 export default class LangService {
-    langLocal: LangLocalRepository;
+  langLocal: LangLocalRepository;
 
-    constructor() {
-        this.langLocal = new LangLocalRepository();
+  constructor() {
+    this.langLocal = new LangLocalRepository();
+  }
+
+  changeLang = async (lang: LangType) => {
+    await this.langLocal.set(lang);
+
+    if (lang) {
+      await Localization.changeLanguage(lang);
     }
+  };
 
-    changeLang = async (lang: LangType) => {
-        await this.langLocal.set(lang);
-
-        if (lang) {
-            await Localization.changeLanguage(lang);
-        }
-    };
-
-    getLang = async () => {
-        return await this.langLocal.get();
-    };
+  getLang = async () => {
+    return await this.langLocal.get();
+  };
 }

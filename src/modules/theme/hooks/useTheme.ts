@@ -4,26 +4,26 @@ import { ThemeContext } from "../ThemeProvider.tsx";
 import { Colors } from "../../../styles/Colors.ts";
 
 export const useTheme = (): IThemeContext & {
-    Colors: IColors;
+  Colors: IColors;
 } => {
-    const context = useContext(ThemeContext);
-    if (context === undefined) {
-        throw new Error("useTheme must be used within a ThemeProvider");
+  const context = useContext(ThemeContext);
+  if (context === undefined) {
+    throw new Error("useTheme must be used within a ThemeProvider");
+  }
+
+  const colors = useMemo<IColors>(() => {
+    const result = {};
+
+    const keys = Object.keys(Colors) as Array<ColorsKeys>;
+    for (let i = 0; i < keys.length; i++) {
+      const colorObject = Colors[keys[i]];
+      if (context.theme in colorObject) {
+        Object.assign(result, { [keys[i]]: colorObject[context.theme] });
+      }
     }
 
-    const colors = useMemo<IColors>(() => {
-        const result = {};
+    return result as IColors;
+  }, [context.theme]);
 
-        const keys = Object.keys(Colors) as Array<ColorsKeys>;
-        for (let i = 0; i < keys.length; i++) {
-            const colorObject = Colors[keys[i]];
-            if (context.theme in colorObject) {
-                Object.assign(result, { [keys[i]]: colorObject[context.theme] });
-            }
-        }
-
-        return result as IColors;
-    }, [context.theme]);
-
-    return { Colors: colors, ...context };
+  return { Colors: colors, ...context };
 };
