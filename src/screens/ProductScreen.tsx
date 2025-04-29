@@ -11,39 +11,40 @@ import { useTheme } from "../modules/theme/hooks/useTheme.ts";
 import { IColors } from "../modules/theme/ThemeTypes.ts";
 
 type ProductScreenProps = {
-    route: RouteProp<GoodsStackParamList, "Product">;
+  route: RouteProp<GoodsStackParamList, "Product">;
 };
 
 const ProductScreen = observer(({ route }: ProductScreenProps) => {
-    const { code } = route.params;
-    const { productsStore } = useRootStore();
-    const { Colors } = useTheme();
-    const styles = useStyles(Colors);
+  const { code } = route.params;
+  const { productsStore } = useRootStore();
+  const { Colors } = useTheme();
+  const styles = useStyles(Colors);
 
-    useEffect(() => {
-        productsStore.handleBarcode(code);
-    }, []);
+  useEffect(() => {
+    productsStore.handleBarcode(code);
+  }, []);
 
-    if (productsStore.isLoading) return <ActivityIndicator style={DefaultStyles.center} size={48} color={Colors.textPrimary}/>
-    return (
-        <ScrollView style={styles.container}>
-            <ProductProperties code={code}/>
-            <View style={styles.divider}/>
-            <ProductForm code={code}/>
-        </ScrollView>
-    );
+  if (productsStore.isLoading) {
+    return <ActivityIndicator style={DefaultStyles.center} size={48} color={Colors.textPrimary} />;
+  }
+  return (
+    <ScrollView style={styles.container}>
+      <ProductProperties code={code} />
+      <View style={styles.divider} />
+      <ProductForm code={code} />
+    </ScrollView>
+  );
 });
 
-const useStyles = (colors: IColors) =>
-    StyleSheet.create({
-        container: {
-            padding: 16,
-        },
-        divider: {
-            height: 1,
-            backgroundColor: colors.backgroundSecondary,
-            marginVertical: 16,
-        },
-    });
+const useStyles = (colors: IColors) => StyleSheet.create({
+  container: {
+    padding: 16,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: colors.backgroundSecondary,
+    marginVertical: 16,
+  },
+});
 
 export default ProductScreen;

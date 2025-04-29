@@ -4,34 +4,37 @@ import { useTheme } from "../../modules/theme/hooks/useTheme.ts";
 import Text from "../Text.tsx";
 
 type FieldProps = {
-    title: string;
-    value: string | undefined;
+  title: string;
+  value: string | undefined;
 };
 
 const ProductProperty = ({ title, value }: FieldProps) => {
-    if (!value) {
-        return null;
-    }
+  if (!value) {
+    return null;
+  }
 
-    const { Colors } = useTheme();
-    const styles = useStyles(Colors);
+  const { Colors } = useTheme();
+  const styles = useStyles(Colors);
 
-    return (
-        <Text style={styles.text}>
-            <Text style={styles.title}>{title}</Text>: {value}
-        </Text>
-    );
+  return (
+    <Text style={styles.text}>
+      <Text style={styles.title}>
+        {title}
+      </Text>
+      :
+      {value}
+    </Text>
+  );
 };
 
-const useStyles = (colors: IColors) =>
-    StyleSheet.create({
-        title: {
-            fontWeight: "bold",
-            color: colors.textPrimary,
-        },
-        text: {
-            color: colors.textPrimary,
-        }
-    });
+const useStyles = (colors: IColors) => StyleSheet.create({
+  title: {
+    fontWeight: "bold",
+    color: colors.textPrimary,
+  },
+  text: {
+    color: colors.textPrimary,
+  },
+});
 
 export default ProductProperty;

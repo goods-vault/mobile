@@ -117,6 +117,7 @@ dependencies {
         implementation jscFlavor
     }
 }
+
 project.ext.vectoricons = [
     iconFontNames: [ "Feather.ttf" ]
 ]

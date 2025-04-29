@@ -1,15 +1,12 @@
 import { createContext } from "react";
 import { ProductsStore } from "./modules/products/ProductsStore.ts";
-import { LangStore } from "./modules/lang/LangStore.ts";
 
 class RootStore {
-    productsStore;
-    langStore;
+  productsStore;
 
-    constructor() {
-        this.productsStore = new ProductsStore();
-        this.langStore = new LangStore();
-    };
+  constructor() {
+    this.productsStore = new ProductsStore();
+  }
 }
 
 export const rootStore = new RootStore();
