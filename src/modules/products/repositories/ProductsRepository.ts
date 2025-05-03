@@ -1,5 +1,6 @@
 import { ProductFromApi } from "../types/product";
 import AxiosClient from "../../../base/api/axios/AxiosClient.ts";
+import { Category } from "../types/category";
 
 export default class ProductsRepository {
   apiClient: AxiosClient;
@@ -18,5 +19,9 @@ export default class ProductsRepository {
       url: "",
       data: { keyValue: code },
     });
+  };
+
+  fetchCategories = () => {
+    return this.apiClient.get<Category[]>({ url: "/categories" });
   };
 }

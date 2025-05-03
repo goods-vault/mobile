@@ -90,4 +90,14 @@ export default class ProductsService {
     this.productsLocalRepository.removeAll();
     return new ProductsModel();
   };
+
+  fetchCategories = async (model: ProductsModel | null) => {
+    if (!model) {
+      return model;
+    }
+
+    model.categories = (await this.productsRepository.fetchCategories()).data;
+
+    return model;
+  };
 }

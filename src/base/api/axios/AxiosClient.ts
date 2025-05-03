@@ -6,11 +6,10 @@ export default class AxiosClient {
   constructor(config?: AxiosRequestConfig) {
     this.api = axios.create(config);
     this.api.defaults.baseURL = this.getDefaultBaseUrl();
-    this.api.defaults.headers.common["Content-Type"] = "application/x-www-form-urlencoded; charset=UTF-8";
   }
 
   getDefaultBaseUrl = () => {
-    return "https://gepir.gs1ru.org/GEPIR40/getItem";
+    return "https://gazelle-destined-shiner.ngrok-free.app/api";
   };
 
   get = <T extends {}>(config: any) => {

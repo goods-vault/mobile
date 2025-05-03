@@ -45,12 +45,22 @@ export class ProductsStore {
     this.setIsLoading(false);
   };
 
+  fetchCategories = async () => {
+    this.setIsLoading(true);
+    this.setProductsModel(await this.productsService.fetchCategories(this.productsModel));
+    this.setIsLoading(false);
+  };
+
   getProductByCode = (code: string) => {
     return this.productsModel?.products.find((product) => product.code === code) || null;
   };
 
   getDescriptionByCode = (code: string) => {
     return this.productsModel?.descriptions[code] || "";
+  };
+
+  getCategories = () => {
+    return this.productsModel?.categories || [];
   };
 
   setProductsModel = (value: ProductsModel | null) => {
