@@ -1,12 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { ThemeProvider } from "./src/modules/theme/ThemeProvider.tsx";
-
+import {useRootStore} from "./src/hooks/useRootStore.tsx";
 
 const App = () => {
-  return (
-      <ThemeProvider >
-        <></>
-      </ThemeProvider>
+
+    const { productsStore } = useRootStore();
+
+    useEffect(() => {
+        productsStore.initProductsModel();
+    }, []);
+
+    return (
+        <ThemeProvider >
+            <></>
+        </ThemeProvider>
   );
 }
 

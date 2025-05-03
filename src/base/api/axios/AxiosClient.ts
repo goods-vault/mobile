@@ -6,16 +6,16 @@ export default class AxiosClient {
     constructor(config?: AxiosRequestConfig) {
         this.api = axios.create(config);
         this.api.defaults.baseURL = this.getDefaultBaseUrl();
-        this.api.defaults.headers.common["Content-Type"] = "application/x-www-form-urlencoded; charset=UTF-8";
-    };
+    }
 
     getDefaultBaseUrl = () => {
-        return "https://gepir.gs1ru.org/GEPIR40/getItem";
+        return "http://10.0.2.2:8000/api/";  // работает на эмуляторе
     };
 
-    get = <T extends {}>(config: any) => {
-        return this.api.get<T>(config.url, config.config);
-    };
+    async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+        const response = await this.api.get<T>(url, config);
+        return response.data;
+    }
 
     post = <T extends {}>(config: any) => {
         return this.api.post<T>(config.url, config.data, config.config);

@@ -1,48 +1,31 @@
 export interface ProductFromApi {
-    informationProvider: InformationProvider;
-    responseHeader: ResponseHeader;
-    gepirItem: GepirItem;
+    gtin: string;
+    brand: string | null;
+    title: string;
+    image: string;
+    net_content: {
+        unit: string;
+        value: number;
+    };
+    category_id: number;
+    category: string;
+    updated_at: string;
 }
 
-export interface InformationProvider {
-    url: string;
-    name: string;
-}
-
-export interface ResponseHeader {
-    responderGLN: string;
-    numberOfHits: number;
-    gepirReturnCode: GepirReturnCode;
-}
-
-export interface GepirReturnCode {
-    value: string; // "0"
-}
-
-export interface GepirItem {
-    // itemDataLine: (ItemDataLine | EmptyItemDataLine)[];
-    itemDataLine: ItemDataLine[];
-}
-
-export interface ItemDataLine {
-    itemDataLanguage: ItemDataLanguage;
-    lastChangeDate: LastChangeDate;
-    netContent: NetContent[];
-    returnCode: ReturnCode;
-    tradeItemUnitDescriptor: TradeItemUnitDescriptor;
+export interface Product {
+    code: string;
     itemName: string;
-    brandName: string;
+    brandName: string ;
+    lastChangeDate: LastChangeDate;
+    netContent: Omit<NetContent, "codeListVersion">[] | [];
     tradeItemClassification: TradeItemClassification[];
-    gepirRequestedKey: GepirRequestedKey;
-    informationProvider?: Organization;
-    manufacturer?: Organization;
-    requestedItem: RequestedItem[];
+    image_uri: string;
 }
 
-export interface ItemDataLanguage {
-    value: string; // "ru", "cs", "ko"
-    codeListVersion: string; // "1.0"
+export interface ProductFromBackend extends Product {
+    description: string;
 }
+
 
 export interface LastChangeDate {
     year: number;
@@ -57,76 +40,7 @@ export interface LastChangeDate {
 
 export interface NetContent {
     value: number;
-    measurementUnitCode: "KGM" | "GRM" | "PCE" | "LTR" | "MLT";
+    measurementUnitCode: string;
     codeListVersion: string; // "1.0"
 }
 
-export interface ReturnCode {
-    value: string; // "0", "8"
-    codeListVersion: string; // "1.0"
-}
-
-export interface TradeItemUnitDescriptor {
-    value: string; // "BASE_UNIT_OR_EACH"
-    codeListVersion: string; // "1.0"
-}
-
-export interface TradeItemClassification {
-    gpcCategoryCode: string;
-    gpcCategoryName?: string;
-}
-
-export interface GepirRequestedKey {
-    requestedKeyCode: RequestedKeyCode;
-    requestedKeyValue: string;
-    requestedLanguage: RequestedLanguage;
-}
-
-export interface RequestedKeyCode {
-    value: string; // "GTIN"
-    codeListVersion: string; // "1.0"
-}
-
-export interface RequestedLanguage {
-    value: string; // "ru"
-    codeListVersion: string; // "1.0"
-}
-
-export interface Organization {
-    gln: string;
-    partyName: string[];
-    partyRole: PartyRole[];
-}
-
-export interface PartyRole {
-    value: string; // "INFORMATION_PROVIDER", "MANUFACTURER_OF_GOODS", "MANUFACTURING_PLANT"
-}
-
-export interface RequestedItem {
-    fileFormatName: FileFormatName;
-    uniformResourceIdentifier: string;
-}
-
-export interface FileFormatName {
-    value: string; // "HTML", "IMAGE"
-    codeListVersion: string; // "1.0"
-}
-
-// export interface EmptyItemDataLine {
-//   returnCode: ReturnCode;
-//   informationProvider: Organization;
-// }
-
-export interface Product {
-    code: string;
-    itemName: string;
-    brandName: string;
-    lastChangeDate: LastChangeDate;
-    netContent: Omit<NetContent, "codeListVersion">[] | [];
-    tradeItemClassification: TradeItemClassification[];
-    requestedItem?: RequestedItem[];
-}
-
-export interface ProductFromBackend extends Product {
-    description: string;
-}

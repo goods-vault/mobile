@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { useTheme } from "../modules/theme/hooks/useTheme.ts";
 import { IColors } from "../modules/theme/ThemeTypes.ts";
 
+
 type ProductScreenProps = {
     route: RouteProp<GoodsStackParamList, "Product">;
 };
@@ -21,7 +22,7 @@ const ProductScreen = observer(({ route }: ProductScreenProps) => {
     const styles = useStyles(Colors);
 
     useEffect(() => {
-        productsStore.handleBarcode(code);
+        productsStore.handleBarcode(code); // в случае с EAN-13 нужен код без "0" в начале
     }, []);
 
     if (productsStore.isLoading) return <ActivityIndicator style={DefaultStyles.center} size={48} color={Colors.textPrimary}/>

@@ -29,19 +29,21 @@ const ProductCard = observer(({ code }: ProductCardProps) => {
 
     return (
         <TouchableOpacity style={styles.container} onPress={onProductClick}>
-    {product?.requestedItem && product?.requestedItem[0].fileFormatName.value === "IMAGE" &&
-    <View style={styles.imageContainer}>
-    <Image style={styles.image}
-    resizeMode="contain"
-    source={{ uri: product.requestedItem[0].uniformResourceIdentifier }}
-    />
-    </View>
-}
-    <View style={styles.contentContainer}>
-    <Text style={styles.text}>{product?.itemName}</Text>
-    </View>
-    </TouchableOpacity>
-);
+            {product?.image_uri && (
+                <View style={styles.imageContainer}>
+                    <Image
+                        style={styles.image}
+                        resizeMode="contain"
+                        source={{ uri: product.image_uri }}
+                        onError={(e) => console.log('Failed to load image:', e.nativeEvent.error)}
+                    />
+                </View>
+            )}
+            <View style={styles.contentContainer}>
+            <Text style={styles.text}>{product?.itemName}</Text>
+            </View>
+        </TouchableOpacity>
+    );
 });
 
 const useStyles = (colors: IColors) =>

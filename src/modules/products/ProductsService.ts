@@ -1,7 +1,6 @@
 import ProductsRepository from "./repositories/ProductsRepository.ts";
 import { ProductsModel } from "./models/ProductsModel.ts";
-import { Product, ProductFromBackend } from "./types/product";
-import { capitalize } from "../../base/utils/string.ts";
+import {LastChangeDate, Product, ProductFromBackend} from "./types/product";
 import ProductsLocalRepository from "./repositories/ProductsLocalRepository.ts";
 
 export default class ProductsService {
@@ -37,30 +36,54 @@ export default class ProductsService {
     };
 
     addPreparedProductByCode = async (model: ProductsModel | null, code: string) => {
-        const response = await this.productsRepository.getProductFromApiByCode(code);
-        const product = response.data.gepirItem.itemDataLine.find(itemDataLine => itemDataLine.itemName);
+        const product = await this.productsRepository.getProductFromApiByCode(code);
+        console.log('API Response:', JSON.stringify(product, null, 2));
 
-        if (!product || !model) {
+        if (!model) {
+            model = new ProductsModel();
+        }
+
+        if (!product) {
+            console.warn(`Product with code ${code} not found`);
             return model;
         }
 
+        // такой нюанс:
+        // для отправки кода EAN-13 нужен код без "0" в начале:
+        // 4600494666612
+        // но в ответе апи придет код c "0" в начале:
+        // 04600494666612
+
+        // не знаю, как именно нам нужно хранить
+        // но пока вставила без "0", если надо, поменяй
+
+        // и еще, я глянула сканнер
+        // и там подставляется "0" в начало EAN-13 кода, по которому потом будет запрос
+        // наверное надо убрать эту подстановку
+
         const preparedProduct: Product = {
-            code: product.gepirRequestedKey.requestedKeyValue,
-            itemName: capitalize(product.itemName),
-            brandName: product.brandName,
-            lastChangeDate: product.lastChangeDate,
-            netContent: product.netContent.map(item => {
-                const { codeListVersion, ...rest } = item;
-                return rest;
-            }),
-            tradeItemClassification: product.tradeItemClassification,
-            requestedItem: product.requestedItem,
+            code: code, // код без "0", в локальном хранилище поиск соотвественно тоже нужно делать без "0"
+            itemName: product.title,
+            brandName: product.brand ?? 'Не указан',
+            lastChangeDate: parseDate(product.updated_at),
+            netContent: [{
+                value: product.net_content.value,
+                measurementUnitCode: product.net_content.unit
+            }],
+            tradeItemClassification: [{
+                gpcCategoryCode: product.category_id.toString(),
+                gpcCategoryName: product.category
+            }],
+            image_uri: product.image
         };
 
-        model.products = [...model.products, preparedProduct];
+        const newModel = {
+            ...model,
+            products: [...model.products, preparedProduct]
+        };
 
-        this.productsLocalRepository.set(model);
-        return model;
+        await this.productsLocalRepository.set(newModel);
+        return newModel;
     };
 
     addDescriptionToProduct = (model: ProductsModel | null, code: string | null, description: string) => {
@@ -89,5 +112,20 @@ export default class ProductsService {
     deleteAllProducts = () => {
         this.productsLocalRepository.removeAll();
         return new ProductsModel();
+    };
+}
+
+
+function parseDate(isoString: string): LastChangeDate {
+    const date = new Date(isoString);
+    return {
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        day: date.getDate(),
+        timezone: 0,
+        hour: date.getHours(),
+        minute: date.getMinutes(),
+        second: date.getSeconds(),
+        fractionalSecond: 0
     };
 }

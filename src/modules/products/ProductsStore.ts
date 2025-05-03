@@ -1,16 +1,15 @@
 import ProductsService from "./ProductsService.ts";
 import { ProductsModel } from "./models/ProductsModel.ts";
-import { makeAutoObservable } from "mobx";
+import {makeAutoObservable} from "mobx";
 
 export class ProductsStore {
+
+    productsService;
     productsModel: ProductsModel | null = null;
     isLoading = false;
 
-    productsService;
-
     constructor() {
         makeAutoObservable(this);
-
         this.productsService = new ProductsService();
     };
 
@@ -46,7 +45,7 @@ export class ProductsStore {
     };
 
     getProductByCode = (code: string) => {
-        return this.productsModel?.products.find(product => product.code === code) || null;
+        return this.productsModel?.products.find(product => product.code === `${code}`) || null;
     };
 
     getDescriptionByCode = (code: string) => {

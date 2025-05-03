@@ -5,7 +5,6 @@ import { DefaultStyles } from "../../styles/DefaultStyles.ts";
 import { IColors } from "../../modules/theme/ThemeTypes.ts";
 import { useTheme } from "../../modules/theme/hooks/useTheme.ts";
 import Text from "../Text.tsx";
-import { useTranslation } from "react-i18next";
 
 type ProductFormProps = {
     code: string;
@@ -16,20 +15,19 @@ const ProductForm = observer(({ code }: ProductFormProps) => {
     const description = productsStore.getDescriptionByCode(code);
     const { Colors } = useTheme();
     const styles = useStyles(Colors);
-    const { t } = useTranslation("goods");
 
     if (productsStore.isLoading) return <ActivityIndicator style={DefaultStyles.center} size={48}
     color={Colors.textPrimary}/>
     return (
         <View style={styles.container}>
-        <Text style={styles.text}>{t("notes")}</Text>
-    <TextInput
-    style={styles.input}
-    multiline={true}
-    value={description}
-    onChangeText={(text) => productsStore.handleDescription(code, text)}
-    />
-    </View>
+            <Text style={styles.text}>Заметки</Text>
+            <TextInput
+                style={styles.input}
+                multiline={true}
+                value={description}
+                onChangeText={(text) => productsStore.handleDescription(code, text)}
+            />
+        </View>
 );
 });
 

@@ -13,10 +13,9 @@ export default class ProductsRepository {
         return [];
     };
 
-    getProductFromApiByCode = (code: string) => {
-        return this.apiClient.post<ProductFromApi>({
-            url: "",
-            data: { keyValue: code }
-        });
-    };
+    async getProductFromApiByCode(code: string): Promise<ProductFromApi> {
+        const url = `product?code=${code}`;
+        const response = await this.apiClient.get<ProductFromApi>(url);
+        return response;
+    }
 };
