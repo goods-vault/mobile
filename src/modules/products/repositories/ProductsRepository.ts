@@ -19,4 +19,8 @@ export default class ProductsRepository {
       data: { keyValue: code },
     });
   };
+
+  fetchBrands = () => {
+    return this.apiClient.get<Brand[]>({ url: "/brands" });
+  };
 }

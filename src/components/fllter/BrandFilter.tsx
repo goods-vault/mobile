@@ -1,40 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { Text, ActivityIndicator, TouchableOpacity, View, StyleSheet } from "react-native";
-import AxiosClient from "../../base/api/axios/AxiosClient.ts";
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useTheme } from "../../modules/theme/hooks/useTheme.ts";
 import { IColors } from "../../modules/theme/ThemeTypes.ts";
+import { useRootStore } from "../../hooks/useRootStore.tsx";
+import { observer } from "mobx-react";
 
-type Brand = string;
+type BrandFilterProps = {
+  onSelectionChange?: (selectedBrands: Brand[])=> void;
+};
 
-const BrandFilter = () => {
-  const [brands, setBrands] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const BrandFilter = observer(({ onSelectionChange }: BrandFilterProps) => {
+  const { productsStore } = useRootStore();
+  const brands = productsStore.getBrands();
 
-  const [activeBrands, setActiveBrands] = useState<Set<string | null>>(new Set());
+  const [activeBrands, setActiveBrands] = useState<Set<Brand>>(new Set());
 
   const { Colors } = useTheme();
   const styles = useStyles(Colors);
 
   useEffect(() => {
-    new AxiosClient().get<Brand[]>({ url: "/api/brands" })
-      .then((response) => setBrands(response.data))
-      .catch((error) => setError("Не удалось загрузить список брендов"))
-      .finally(() => setLoading(false));
-  }, []);
+    if (onSelectionChange) {
+      onSelectionChange([...activeBrands]);
+    }
+  }, [activeBrands, onSelectionChange]);
 
-  if (loading) {
+  if (productsStore.isLoading) {
     return <ActivityIndicator size="large" color={Colors.accentDefault} />;
   }
 
-  if (error) {
-    return <Text>
-      Error:
-      {error}
-    </Text>;
-  }
-
-  const handlePress = (brand: string | null) => {
+  const handlePress = (brand: string) => {
     const newActiveBrands = new Set(activeBrands);
     if (newActiveBrands.has(brand)) {
       newActiveBrands.delete(brand);
@@ -43,7 +37,6 @@ const BrandFilter = () => {
     }
     setActiveBrands(newActiveBrands);
   };
-
 
   return (
     <View style={styles.pillsView}>
@@ -62,7 +55,7 @@ const BrandFilter = () => {
         )}
     </View>
   );
-};
+});
 export default BrandFilter;
 
 const useStyles = (colors: IColors) => StyleSheet.create({

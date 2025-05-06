@@ -10,7 +10,7 @@ export default class AxiosClient {
   }
 
   getDefaultBaseUrl = () => {
-    return "http://172.22.240.1:8000/";
+    return "http://172.22.240.1:8000/api";
   };
 
   get = <T extends {}>(config: any) => {

@@ -5,10 +5,10 @@ import { useRef } from "react";
 import { IColors } from "../../modules/theme/ThemeTypes.ts";
 import { useTheme } from "../../modules/theme/hooks/useTheme.ts";
 import Icon from "react-native-vector-icons/Feather";
-import BrandFilter from "./BrandFilter.tsx";
 import { ThemeProvider } from "../../modules/theme/ThemeProvider.tsx";
+import BrandFilter from "./BrandFilter.tsx";
 
-const ProductFilter = () => {
+const FiltersModal = () => {
   const { Colors } = useTheme();
   const styles = useStyles(Colors);
   const modalizeRef = useRef(null);
@@ -36,7 +36,7 @@ const ProductFilter = () => {
 
               <Text style={styles.modalHeader}>Категории</Text>
               <Text style={styles.modalHeader}>Бренды</Text>
-              <BrandFilter />
+              <BrandFilter onSelectionChange={(brands) => {}} />
             </>
           </ThemeProvider>
         </Modalize>
@@ -45,7 +45,7 @@ const ProductFilter = () => {
 
   );
 };
-export default ProductFilter;
+export default FiltersModal;
 
 const useStyles = (colors: IColors) => StyleSheet.create({
   filterButton: {
