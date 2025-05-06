@@ -27,14 +27,12 @@ const App = observer(() => {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Host>
-        <ThemeProvider>
-          <>
-            <Navigator />
-            <StatusBar />
-          </>
-        </ThemeProvider>
-      </Host>
+      <ThemeProvider>
+        <Host>
+          <Navigator />
+          <StatusBar />
+        </Host>
+      </ThemeProvider>
     </GestureHandlerRootView>
   );
 });
