@@ -3,12 +3,10 @@ import Icon from "react-native-vector-icons/Feather";
 import { IColors } from "../../modules/theme/ThemeTypes.ts";
 import { useTheme } from "../../modules/theme/hooks/useTheme.ts";
 import Text from "../Text.tsx";
-import { useTranslation } from "react-i18next";
 
 const NoCameraAccess = () => {
   const { Colors } = useTheme();
   const styles = useStyles(Colors);
-  const { t } = useTranslation("scanner");
 
   return (
     <View style={styles.center}>
@@ -17,10 +15,10 @@ const NoCameraAccess = () => {
         <Icon name="settings" size={30} color={Colors.textPrimary} />
       </View>
       <Text style={styles.title}>
-        {t("grant_camera_access_in_settings.grant_camera_access")}
+        Разрешите доступ к камере
         {"\n"}
         <Text style={styles.link} onPress={Linking.openSettings}>
-          {t("grant_camera_access_in_settings.in_settings")}
+          в настройках
         </Text>
       </Text>
     </View>

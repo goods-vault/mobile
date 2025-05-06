@@ -6,6 +6,8 @@ import { DeepLinking } from "./src/navigation/DeepLinking.ts";
 import { observer } from "mobx-react";
 import { useRootStore } from "./src/hooks/useRootStore.tsx";
 import StatusBar from "./src/components/StatusBar.tsx";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Host } from "react-native-portalize";
 
 
 const App = observer(() => {
@@ -24,12 +26,14 @@ const App = observer(() => {
   });
 
   return (
-    <ThemeProvider>
-      <>
-        <Navigator />
-        <StatusBar />
-      </>
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider>
+        <Host>
+          <Navigator />
+          <StatusBar />
+        </Host>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 });
 
