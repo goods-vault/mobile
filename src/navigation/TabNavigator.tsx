@@ -1,5 +1,4 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
 import TabScannerStack from "./TabScannerStack.tsx";
 import TabGoodsStack from "./TabGoodsStack.tsx";
 import { TabStackParamList } from "./types.ts";

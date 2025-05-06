@@ -10,7 +10,7 @@ export default class AxiosClient {
   }
 
   getDefaultBaseUrl = () => {
-    return "https://gepir.gs1ru.org/GEPIR40/getItem";
+    return "http://172.22.240.1:8000/api";
   };
 
   get = <T extends {}>(config: any) => {
