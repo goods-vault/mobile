@@ -51,6 +51,12 @@ export class ProductsStore {
     this.setIsLoading(false);
   };
 
+  fetchBrands = async () => {
+    this.setIsLoading(true);
+    this.setProductsModel(await this.productsService.fetchBrands(this.productsModel));
+    this.setIsLoading(false);
+  };
+
   getProductByCode = (code: string) => {
     return this.productsModel?.products.find((product) => product.code === code) || null;
   };
@@ -61,6 +67,10 @@ export class ProductsStore {
 
   getCategories = () => {
     return this.productsModel?.categories || [];
+  };
+
+  getBrands = () => {
+    return this.productsModel?.brands || [];
   };
 
   setProductsModel = (value: ProductsModel | null) => {

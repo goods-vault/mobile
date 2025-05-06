@@ -97,7 +97,15 @@ export default class ProductsService {
     }
 
     model.categories = (await this.productsRepository.fetchCategories()).data;
+    return model;
+  };
 
+  fetchBrands = async (model: ProductsModel | null) => {
+    if (!model) {
+      return model;
+    }
+
+    model.brands = (await this.productsRepository.fetchBrands()).data;
     return model;
   };
 }

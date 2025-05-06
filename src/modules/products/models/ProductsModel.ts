@@ -5,4 +5,5 @@ export class ProductsModel {
   products: Product[] = [];
   descriptions: Record<string, string> = {};
   categories: Category[] = [];
+  brands: Brand[] = [];
 }

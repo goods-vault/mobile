@@ -8,6 +8,7 @@ import DeleteButton from "../components/buttons/DeleteButton.tsx";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../navigation/types.ts";
 import { useTheme } from "../modules/theme/hooks/useTheme.ts";
+import FiltersModal from "../components/filters/FiltersModal.tsx";
 
 const GoodsListScreen = observer(() => {
   const { productsStore } = useRootStore();
@@ -32,6 +33,10 @@ const GoodsListScreen = observer(() => {
   };
 
   useEffect(() => {
+    productsStore.fetchBrands();
+  }, []);
+
+  useEffect(() => {
     navigation.setOptions({
       headerRight: () => <DeleteButton onPress={handleDeleteAllProducts} />,
 
@@ -42,12 +47,15 @@ const GoodsListScreen = observer(() => {
     return <ActivityIndicator style={DefaultStyles.center} size={48} color={Colors.textPrimary} />;
   }
   return (
-    <FlatList
-      style={styles.indent}
-      data={productsStore.productsModel?.products}
-      renderItem={({ item }) => <ProductCard code={item.code} />
-      }
-    />
+    <>
+      <FiltersModal />
+      <FlatList
+        style={styles.indent}
+        data={productsStore.productsModel?.products}
+        renderItem={({ item }) => <ProductCard code={item.code} />
+        }
+      />
+    </>
   );
 });
 

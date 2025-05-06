@@ -24,4 +24,8 @@ export default class ProductsRepository {
   fetchCategories = () => {
     return this.apiClient.get<Category[]>({ url: "/categories" });
   };
+
+  fetchBrands = () => {
+    return this.apiClient.get<Brand[]>({ url: "/brands" });
+  };
 }
