@@ -1,0 +1,1 @@
+export const REQUIRED_SCANS_TO_APPROVE = 15;
