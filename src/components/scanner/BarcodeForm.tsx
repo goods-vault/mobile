@@ -5,7 +5,6 @@ import Navigation from "../../base/Navigation.ts";
 import { IColors } from "../../modules/theme/ThemeTypes.ts";
 import { useTheme } from "../../modules/theme/hooks/useTheme.ts";
 import Text from "../Text.tsx";
-import { useTranslation } from "react-i18next";
 
 type BarcodeFormProps = {
   onSubmit: ()=> void;
@@ -16,12 +15,11 @@ const BarcodeForm = ({ onSubmit }: BarcodeFormProps) => {
   const [error, setError] = useState("");
   const { Colors } = useTheme();
   const styles = useStyles(Colors);
-  const { t } = useTranslation("scanner");
 
   const handleAddProduct = (code: string) => {
     const codeType = determineBarcodeType(code);
     if (codeType === null) {
-      setError(t("invalid_code"));
+      setError("Невалидный код");
       return;
     }
 
@@ -46,7 +44,7 @@ const BarcodeForm = ({ onSubmit }: BarcodeFormProps) => {
   return (
     <View style={styles["gap-24"]}>
       <Text style={styles.title}>
-        {t("manual_barcode_entry")}
+        Ручной ввод штрихового кода
       </Text>
       <View style={styles["gap-12"]}>
         <View style={styles["gap-2"]}>
@@ -63,7 +61,7 @@ const BarcodeForm = ({ onSubmit }: BarcodeFormProps) => {
         <TouchableOpacity onPress={() => handleAddProduct(barcode)}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>
-              {t("add_product")}
+              Добавить товар
             </Text>
           </View>
         </TouchableOpacity>
