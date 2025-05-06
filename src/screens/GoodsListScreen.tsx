@@ -33,6 +33,10 @@ const GoodsListScreen = observer(() => {
   };
 
   useEffect(() => {
+    productsStore.fetchCategories();
+  }, []);
+
+  useEffect(() => {
     productsStore.fetchBrands();
   }, []);
 

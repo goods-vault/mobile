@@ -5,8 +5,8 @@ import { useRef } from "react";
 import { IColors } from "../../modules/theme/ThemeTypes.ts";
 import { useTheme } from "../../modules/theme/hooks/useTheme.ts";
 import Icon from "react-native-vector-icons/Feather";
-import { ThemeProvider } from "../../modules/theme/ThemeProvider.tsx";
 import BrandsFilter from "./BrandsFilter.tsx";
+import CategoryFilter from "./CategoryFilter.tsx";
 
 const FiltersModal = () => {
   const { Colors } = useTheme();
@@ -30,22 +30,22 @@ const FiltersModal = () => {
           childrenStyle={styles.modal}
           modalStyle={styles.modalize}
         >
-          <ThemeProvider>
+          <View style={styles.container}>
+            <Text style={styles.modalHeader}>Фильтры</Text>
             <View>
-              <Text style={[styles.modalHeader, { alignSelf: "center", marginBottom: 30 }]}>Фильтры</Text>
-
-              <Text style={styles.modalHeader}>Категории</Text>
-
-              <Text style={styles.modalHeader}>Бренды</Text>
-              <BrandsFilter onSelectionChange={(brands) => {}} />
-
-              <View style={styles.applyButtonContainer}>
-                <TouchableOpacity style={styles.applyButton} onPress={() => {}}>
-                  <Text style={styles.applyButtonText}>Применить</Text>
-                </TouchableOpacity>
-              </View>
+              <Text style={styles.filterHeader}>Категории</Text>
+              <CategoryFilter onSelectionChange={(categoryIds) => {}} />
             </View>
-          </ThemeProvider>
+            <View>
+              <Text style={styles.filterHeader}>Бренды</Text>
+              <BrandsFilter onSelectionChange={(brands) => {}} />
+            </View>
+            <View style={styles.applyButtonContainer}>
+              <TouchableOpacity style={styles.applyButton} onPress={() => {}}>
+                <Text style={styles.applyButtonText}>Применить</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </Modalize>
       </Portal>
     </>
@@ -83,6 +83,13 @@ const useStyles = (colors: IColors) => StyleSheet.create({
   modalHeader: {
     fontFamily: "JetBrains Mono",
     color: colors.textPrimary,
+    fontSize: 18,
+    fontWeight: "500",
+    alignSelf: "center",
+  },
+  filterHeader: {
+    fontFamily: "JetBrains Mono",
+    color: colors.textPrimary,
     fontSize: 16,
     fontWeight: "500",
     marginBottom: 15,
@@ -99,9 +106,12 @@ const useStyles = (colors: IColors) => StyleSheet.create({
   },
   applyButtonText: {
     fontFamily: "JetBrains Mono",
-    color: colors.textPrimary, // белый текст
+    color: colors.textPrimary,
     fontSize: 18,
     fontWeight: "600",
     alignSelf: "center",
+  },
+  container: {
+    gap: 20,
   },
 });

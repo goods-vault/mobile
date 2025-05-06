@@ -18,10 +18,6 @@ const CategoryFilter = observer(({ onSelectionChange }: CategoryFilterProps) => 
   const categories = productsStore.getCategories();
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
 
-  useEffect(() => {
-    productsStore.fetchCategories();
-  }, []);
-
   const flatCategories = useMemo(() => flattenCategories(categories), [categories]);
 
   useEffect(() => {
