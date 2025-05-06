@@ -8,8 +8,7 @@ import DeleteButton from "../components/buttons/DeleteButton.tsx";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../navigation/types.ts";
 import { useTheme } from "../modules/theme/hooks/useTheme.ts";
-import FiltersModal from "../components/fllter/FiltersModal.tsx";
-import BrandFilter from "../components/fllter/BrandFilter.tsx";
+import FiltersModal from "../components/filters/FiltersModal.tsx";
 
 const GoodsListScreen = observer(() => {
   const { productsStore } = useRootStore();
@@ -32,6 +31,10 @@ const GoodsListScreen = observer(() => {
       { cancelable: true },
     );
   };
+
+  useEffect(() => {
+    productsStore.fetchCategories();
+  }, []);
 
   useEffect(() => {
     productsStore.fetchBrands();

@@ -5,11 +5,11 @@ import { IColors } from "../../modules/theme/ThemeTypes.ts";
 import { useRootStore } from "../../hooks/useRootStore.tsx";
 import { observer } from "mobx-react";
 
-type BrandFilterProps = {
+type BrandsFilterProps = {
   onSelectionChange?: (selectedBrands: Brand[])=> void;
 };
 
-const BrandFilter = observer(({ onSelectionChange }: BrandFilterProps) => {
+const BrandsFilter = observer(({ onSelectionChange }: BrandsFilterProps) => {
   const { productsStore } = useRootStore();
   const brands = productsStore.getBrands();
 
@@ -56,12 +56,25 @@ const BrandFilter = observer(({ onSelectionChange }: BrandFilterProps) => {
     </View>
   );
 });
-export default BrandFilter;
+export default BrandsFilter;
 
 const useStyles = (colors: IColors) => StyleSheet.create({
-  pillsView: { flexDirection: "row", flexWrap: "wrap", gap: 10 },
-  pill: { paddingVertical: 5, paddingHorizontal: 10, backgroundColor: colors.backgroundTertiary, borderRadius: 5 },
-  activePill: { backgroundColor: colors.accentDefault },
-  pillText: { fontFamily: "JetBrains Mono", color: colors.textPrimary },
+  pillsView: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10,
+  },
+  pill: {
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    backgroundColor: colors.backgroundTertiary,
+    borderRadius: 5,
+  },
+  activePill: {
+    backgroundColor: colors.accentDefault,
+  },
+  pillText: {
+    fontFamily: "JetBrains Mono",
+    color: colors.textPrimary,
+  },
 });
-
