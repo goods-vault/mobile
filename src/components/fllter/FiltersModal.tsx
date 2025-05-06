@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
 import { Portal } from "react-native-portalize";
 import { Modalize } from "react-native-modalize";
 import { useRef } from "react";
@@ -31,18 +31,24 @@ const FiltersModal = () => {
           modalStyle={styles.modalize}
         >
           <ThemeProvider>
-            <>
+            <View>
               <Text style={[styles.modalHeader, { alignSelf: "center", marginBottom: 30 }]}>Фильтры</Text>
 
               <Text style={styles.modalHeader}>Категории</Text>
+
               <Text style={styles.modalHeader}>Бренды</Text>
               <BrandFilter onSelectionChange={(brands) => {}} />
-            </>
+
+              <View style={styles.applyButtonContainer}>
+                <TouchableOpacity style={styles.applyButton} onPress={() => {}}>
+                  <Text style={styles.applyButtonText}>Применить</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           </ThemeProvider>
         </Modalize>
       </Portal>
     </>
-
   );
 };
 export default FiltersModal;
@@ -79,6 +85,23 @@ const useStyles = (colors: IColors) => StyleSheet.create({
     color: colors.textPrimary,
     fontSize: 16,
     fontWeight: "500",
+    marginBottom: 15,
+  },
+  applyButtonContainer: {
+    marginTop: 30,
     marginBottom: 10,
+  },
+  applyButton: {
+    backgroundColor: colors.accentDefault,
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    borderRadius: 10,
+  },
+  applyButtonText: {
+    fontFamily: "JetBrains Mono",
+    color: colors.textPrimary, // белый текст
+    fontSize: 18,
+    fontWeight: "600",
+    alignSelf: "center",
   },
 });
