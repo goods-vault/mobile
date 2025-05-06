@@ -3,3 +3,7 @@ export interface Category {
   title: string;
   children: Category[];
 }
+
+export interface FlattenCategory extends Category {
+  level: number;
+}
